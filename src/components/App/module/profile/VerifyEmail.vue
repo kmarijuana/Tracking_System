@@ -1,12 +1,9 @@
 <template>
   <div
-  class="card-body overflow-auto" style="max-height: inherit;" 
+    class="card-body overflow-auto max-h-[inherit]"
     :class="`${tab != 'verify-email' ? 'hidden' : ''}`"
   >
-    <font-awesome-icon
-      icon="fa-solid fa-envelope-circle-check"
-      class="text-5xl"
-    />
+    <Icon icon="fa6-solid:envelope-circle-check" class="text-5xl" />
     <div class="text-xl font-bold">Verify your email</div>
     <div class="text-md">Please check your email to verify your account.</div>
 
@@ -54,16 +51,7 @@
 
     <div class="form-control mt-2">
       <button
-        class="
-          btn btn-xs
-          sm:btn-sm
-          md:btn-md
-          lg:btn-lg
-          bg-black
-          text-white
-          border-black
-          w-full
-        "
+        class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-black text-white border-black w-full"
         @click="verifyEmail"
         :disabled="process"
       >
@@ -90,6 +78,8 @@
   </div>
 </template>
 <script>
+import Query from "@/assets/js/fetch.js";
+
 export default {
   name: "VerifyEmail",
   data() {
@@ -123,56 +113,29 @@ export default {
 
       vm.errorMsg = "";
 
-      
-      fetch(`${vm.ServiceUrl}controllers/verify-email`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${vm.jwt}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((res) => {
-          vm.process = false;
-          let i = 0;
-          vm.interval = setInterval(() => {
-            i++;
-            vm.errorMsg = `Please try again after ${31 - i} second.`;
-            if (i == 31) {
-              clearInterval(vm.interval);
-              vm.interval = null;
-              vm.errorMsg = "";
-            }
-          }, 1000);
-          console.log(res);
-          if (res.success) {
-            vm.success = "Successfully resend verify email.";
-            //   vm.$store.commit("isLogin", true);
-            //   vm.$store.commit("user", res.user);
-            //   vm.$store.commit("jwt", vm.jwt);
-            //   console.log(vm.$route.query);
-            //   if (vm.$route.query.gp_code) {
-            //     // console.log("vm.$route.query.gp_codevm.$route.query.gp_codevm.$route.query.gp_codevm.$route.query.gp_codevm.$route.query.gp_codevm.$route.query.gp_code")
-            //     vm.$emit("setgame");
-            //   } else {
-            //     vm.$emit("getgame");
-            //   }
-            // } else {
-            //   vm.$store.commit("isLogin", false);
-            //   vm.$store.commit("jwt", false);
-            //   localStorage.removeItem("jwt");
-            return;
+      new Query('base','get').get(this, `${vm.ServiceUrl}api/controllers/verify-email`, (res) => {
+        vm.process = false;
+        let i = 0;
+        vm.interval = setInterval(() => {
+          i++;
+          vm.errorMsg = `Please try again after ${31 - i} second.`;
+          if (i == 31) {
+            clearInterval(vm.interval);
+            vm.interval = null;
+            vm.errorMsg = "";
           }
-          this.errorMsg = res.errorMsg;
-        })
-        .catch((error) => {
-          vm.process = false;
-          vm.errorMsg = res.errorMsg;
-          // vm.$store.commit("isLogin", false);
-          // vm.$store.commit("jwt", false);
-          // localStorage.removeItem("jwt");
-          console.error("Error:", error);
-        });
+        }, 1000);
+
+        if (!res.success) {
+        // localStorage.removeItem("user_token");
+        // this.$router.push({ name: `Login` });
+        } else {
+          vm.success = "Successfully resend verify email.";
+          return;
+        }
+
+        this.errorMsg = res.errorMsg;
+      });
     },
   },
   watch: {
@@ -180,11 +143,10 @@ export default {
       if (val == "verify-email") {
         // this.temp = { ...this.user };
         clearInterval(this.interval);
-              this.interval = null;
-              this.errorMsg = "";
+        this.interval = null;
+        this.errorMsg = "";
       }
     },
   },
 };
 </script>
-

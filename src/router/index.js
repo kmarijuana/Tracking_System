@@ -1,250 +1,188 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
+import Query from "@/assets/js/fetch.js";
 
-import Index from '../views/App/Index.vue'
-import About from '../views/App/About.vue'
-// import Create from '../views/App/Create.vue'
+import Index from "../views/App/Index.vue";
+import Login from "../views/App/Login.vue";
+import PageNotFound from "../views/PageNotFound.vue";
+import News from "../views/App/News.vue";
 
-// WH
-import Tracking from '../views/App/WH/Tracking.vue'
-
-// Member
-import Survey from '../views/App/Member/Survey.vue'
-import Advertising from '../views/App/Member/Advertising.vue'
-import Profile from '../views/App/Member/Profile.vue'
-
-import PosterDashboard from '../views/App/Poster/Dashboard.vue'
-import PosterSurvey from '../views/App/Poster/Survey.vue' 
-import PosterAdvertising from '../views/App/Poster/Advertising.vue'
-
-// import Signin from '../views/App/Signin.vue'
-// import Signup from '../views/App/Signup.vue'
-import Verify from '../views/App/Verify.vue'
-
-// import CreateSurvey from '../views/App/CreateSurvey.vue'
-// import CreateAdvertising from '../views/App/CreateAdvertising.vue'
-
-
-// import Login from '../views/Login.vue'
-// import PrivacyPolicy from '../views/App/PrivacyPolicy.vue'
-// import TermsConditions from '../views/App/TermsConditions.vue'
-
-// import CookiePolicy from '../views/App/CookiePolicy.vue'
-// import PrivacyNotice from '../views/App/PrivacyNotice.vue'
-
-
-// ===============================================
-// ==================== ADMIN ====================
-// ===============================================
-import Admin_Login from '../views/Admin/Login.vue'
-import Admin_Dashboard from '../views/Admin/Dashboard.vue'
-import Admin_Game from '../views/Admin/Game.vue'
-import Admin_Member from '../views/Admin/Member.vue'
-import Admin_Admin from '../views/Admin/Admin.vue'
-import Admin_Gameplay from '../views/Admin/Gameplay.vue'
-import Admin_Reward from '../views/Admin/Reward.vue'
-import Admin_Coin from '../views/Admin/Coin.vue'
-import Admin_Rating from '../views/Admin/Rating.vue'
-import Admin_Survey from '../views/Admin/Survey.vue'
+/*-------------------------------------------------------------*/
+import _DocRouter from "./_Doc";
+/*-------------------------------------------------------------*/
+import ACRouter from "../router/AC";
+import HRRouter from "../router/HR";
+import LabelPrintRouter from "../router/LabelPrint";
+import LMRouter from "../router/LM";
+import WMSRouter from "../router/WMS";
+import PDRouter from "../router/PD";
+import PURouter from "../router/PU";
+import QARouter from "../router/QA";
+import QCRouter from "../router/QC";
+import RDRouter from "../router/RD";
+import SuperDataRouter from "../router/SuperData";
+import TRRRouter from "../router/TRR";
+import WHRouter from "../router/WH";
+import WHMRouter from "../router/WHM";
+import CALRouter from "../router/Calibrate";
+import InditectRoutes from "../router/WHIndirect";
+import SalesRoutes from "../router/Sales";
+/*-------------------------------------------------------------*/
+import EventRouter from "../router/Event";
+/*-------------------------------------------------------------*/
+import SystemRouter from "../router/System";
+/*-------------------------------------------------------------*/
+import DocumentAlertRouter from "../router/DocumentAlert";
 
 const routes = [
   {
-    path: '/',
-    name: 'Dashboard',
+    path: "/404",
+    name: "404",
+    component: PageNotFound,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    beforeEnter(to) {
+      window.location = `/Login`;
+    },
+  },
+  {
+    path: "/",
+    name: "Dashboard",
     component: Index,
-    props: { default: true, menu: true, type: "default" }
-  },
-
-  {
-    path: '/WH/Tracking',
-    name: 'Tracking',
-    component: Tracking,
-    props: { default: true, menu: true, type: "member" }
-  },
-
-
-  {
-    path: '/about',
-    name: 'About',
-    component: About,
-    props: { default: true, menu: true, type: "default" }
-  },
-  // {
-  //   path: '/create',
-  //   name: 'Create',
-  //   component: Create,
-  //   props: { default: true, menu: true, type: "default" }
-  // },
-  {
-    path: '/advertising',
-    name: 'Advertising',
-    component: Advertising,
-    props: { default: true, menu: true, type: "member" }
+    props: { default: true, menu: true, type: "default" },
   },
   {
-    path: '/survey',
-    name: 'Survey',
-    component: Survey,
-    props: { default: true, menu: true, type: "member" }
-  },
-  // {
-  //   path: '/setting',
-  //   name: 'Setting',
-  //   component: Setting,
-  //   props: { default: true, menu: true, type: "member" }
-  // },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile,
-    props: { default: true, menu: true, type: "member" }
+    path: "/News",
+    name: "News",
+    component: News,
+    props: { default: true, menu: true, type: "default" },
   },
   {
-    path: '/poster/dashboard',
-    name: 'PosterDashboard',
-    component: PosterDashboard,
-    props: { default: true, menu: true, type: "poster" }
+    path: "/Login",
+    name: "Login",
+    component: Login,
+    props: { default: true, menu: true, type: "default" },
   },
-  {
-    path: '/poster/survey',
-    name: 'PosterSurvey',
-    component: PosterSurvey,
-    props: { default: true, menu: true, type: "poster" }
-  },
-  {
-    path: '/poster/advertising',
-    name: 'PosterAdvertising',
-    component: PosterAdvertising,
-    props: { default: true, menu: true, type: "poster" }
-  },
-  {
-    path: '/verify',
-    name: 'Verify',
-    component: Verify,
-    props: { default: true, menu: true }
-  },
-  // {
-  //   path: '/signin',
-  //   name: 'Signin',
-  //   component: Signin,
-  //   props: { default: true, menu: true }
-  // },
-  // {
-  //   path: '/signup',
-  //   name: 'Signup',
-  //   component: Signup,
-  //   props: { default: true, menu: true }
-  // },
-  // Create
-  // {
-  //   path: '/create/survey',
-  //   name: 'CreateSurvey',
-  //   component: CreateSurvey,
-  //   props: { default: true, menu: true }
-  // },
-  // {
-  //   path: '/create/advertising',
-  //   name: 'CreateAdvertising',
-  //   component: CreateAdvertising,
-  //   props: { default: true, menu: true }
-  // },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: Login,
-  //   props: { default: true, menu:false }
-  // },
-  // {
-  //   path: "/privacy_policy",
-  //   name: "privacyPolicy",
-  //   component: PrivacyPolicy,
-  // },
-
-  // {
-  //   path: "/terms_confitions",
-  //   name: "TermsConditions",
-  //   component: TermsConditions,
-  // },
-  // {
-  //   path: "/cookiepolicy",
-  //   name: "cookiePolicy",
-  //   component: CookiePolicy,
-  // },
-  // {
-  //   path: "/privacynotice",
-  //   name: "privacyNotice",
-  //   component: PrivacyNotice,
-  // },
-
-  // ===============================================
-  // ==================== ADMIN ====================
-  // ===============================================
-  {
-    path: '/admin/login',
-    name: 'admin_login',
-    component: Admin_Login,
-    props: { default: true, menu: false }
-  },
-  {
-    path: '/admin',
-    name: 'admin_dashboard',
-    component: Admin_Dashboard,
-    props: { default: true, menu: true }
-  },
-  {
-    path: '/admin/game',
-    name: 'admin_game',
-    component: Admin_Game,
-    props: { default: true, menu: true }
-  },
-  {
-    path: '/admin/gameplay',
-    name: 'admin_gameplay',
-    component: Admin_Gameplay,
-    props: { default: true, menu: true }
-  },
-  {
-    path: '/admin/member',
-    name: 'admin_member',
-    component: Admin_Member,
-    props: { default: true, menu: true }
-  },
-  {
-    path: '/admin/admin',
-    name: 'admin_admin',
-    component: Admin_Admin,
-    props: { default: true, menu: true }
-  },
-
-  {
-    path: '/admin/reward',
-    name: 'admin_reward',
-    component: Admin_Reward,
-    props: { default: true, menu: true }
-  },
-  {
-    path: '/admin/coin',
-    name: 'admin_coin',
-    component: Admin_Coin,
-    props: { default: true, menu: true }
-  },
-  {
-    path: '/admin/rating',
-    name: 'admin_rating',
-    component: Admin_Rating,
-    props: { default: true, menu: true }
-  },
-  {
-    path: '/admin/survey',
-    name: 'admin_survey',
-    component: Admin_Survey,
-    props: { default: true, menu: true }
-  },
-
-]
-
+  /*-------------------------------------------------------------*/
+  ..._DocRouter,
+  /*-------------------------------------------------------------*/
+  ...ACRouter,
+  ...HRRouter,
+  ...LMRouter,
+  ...LabelPrintRouter,
+  ...PDRouter,
+  ...PURouter,
+  ...QARouter,
+  ...QCRouter,
+  ...RDRouter,
+  ...SuperDataRouter,
+  ...TRRRouter,
+  ...WHRouter,
+  ...WHMRouter,
+  ...WMSRouter,
+  ...CALRouter,
+  ...InditectRoutes,
+  ...SalesRoutes,
+  /*-------------------------------------------------------------*/
+  ...EventRouter,
+  /*-------------------------------------------------------------*/
+  ...SystemRouter,
+  /*-------------------------------------------------------------*/
+  ...DocumentAlertRouter,
+];
+import store from "../store";
+// console.log(store.getters.menu.HR)
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
+// let user = null;
+// console.log(user)
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = localStorage.getItem("user_token");
+    if (token) {
+      // User is authenticated, proceed to the route
+      next();
+    } else {
+      // User is not authenticated, redirect to login
+      next("/login");
+    }
+  } else {
+    // Non-protected route, allow access
+    next();
+  }
+});
+
+router.afterEach(async (to, from) => {
+  store.commit("user_token", localStorage.getItem("user_token"));
+  store.commit(
+    "language",
+    localStorage.getItem("language") ? localStorage.getItem("language") : "th"
+  );
+  if (to.name == "Login" && store.getters.user_token)
+    return { name: "Dashboard" };
+  if (store.getters.user_token) {
+    if (store.getters.user) {
+      if (to.name == "Dashboard") return true;
+      if (to.name == "HRRegistering") return true;
+      let checkaccess = await canUserAccess(to);
+      if (checkaccess) return true;
+      else return router.push({ name: "Dashboard" });
+    } else {
+      let auth = await authentication();
+      // let checkuser = await haveUser();
+      if (auth.status) {
+        if (to.name == "Dashboard") return true;
+        if (to.name == "HRRegistering") return true;
+        let checkaccess = await canUserAccess(to);
+        if (checkaccess.status) return true;
+        else return router.push({ name: "Dashboard" });
+      } else return router.push({ name: "Login" });
+    }
+  } else {
+    if (to.name == "Login") return true;
+    return router.push({ name: "Login" });
+  }
+});
+
+// function haveUser() {
+//   if (store.getters.user) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+function canUserAccess(to) {
+  if (Object.keys(store.getters.user.access).length == 0)
+    return { status: false };
+  if (!store.getters.user.access[to.href.split("/")[1]])
+    return { status: true };
+  if (
+    store.getters.user.access[to.href.split("/")[1]][to.name] &&
+    store.getters.user.access[to.href.split("/")[1]][to.name] != "none"
+  )
+    return { status: true };
+  else return { status: false };
+}
+async function authentication() {
+  return await new Query(null, "get").get(
+    { user_token: store.getters.user_token },
+    `${store.getters.serviceUrl}api/controllers/MYSQL/INTERNAL/GLOBAL/auth`,
+    (res) => {
+      // console.log(res)
+      if (!res.success) {
+        localStorage.removeItem("user_token");
+      } else {
+        res.row.image = res.row.image ? JSON.parse(res.row.image) : [];
+        res.row.access = res.row.access ? JSON.parse(res.row.access) : {};
+        store.commit("user", res.row);
+        store.commit("user_token", store.getters.user_token);
+
+        return { status: res.success };
+      }
+    }
+  );
+}
+export default router;

@@ -1,6 +1,6 @@
 <template>
   <div
-  class="card-body overflow-auto" style="max-height: inherit;" 
+    class="card-body overflow-auto max-h-[inherit]"
     :class="`${tab != 'forgot-password' ? 'hidden' : ''}`"
   >
     <div class="text-xl font-bold">Forgot password</div>
@@ -9,13 +9,10 @@
     </div>
     <div class="flex flex-col w-full border-opacity-50">
       <div class="form-control grid">
-        <!-- <label class="label">
-                  <span class="label-text">Email Address*</span>
-                </label> -->
         <input
           type="text"
           placeholder="Email Address*"
-          class="input input-bordered"
+          class="input input-bordered border-base-content"
           v-model="temp.email"
         />
       </div>
@@ -59,21 +56,11 @@
     </div>
     <div class="form-control mt-2">
       <button
-        class="
-          btn btn-xs
-          sm:btn-sm
-          md:btn-md
-          lg:btn-lg
-          bg-black
-          text-white
-          border-black
-          w-full
-        "
-     
+        class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg bg-black text-white border-black w-full"
         @click="forgotPassword"
         :disabled="process"
       >
-      <!-- @click="$emit('changetab','verify-email')" -->
+        <!-- @click="$emit('changetab','verify-email')" -->
         Reset password
       </button>
     </div>
@@ -85,7 +72,7 @@ export default {
   data() {
     return {
       temp: {
-        email:''
+        email: "",
       },
       success: "",
       errorMsg: "",
@@ -98,9 +85,6 @@ export default {
     ServiceUrl() {
       return this.$store.getters.serviceUrl;
     },
-    isLogin() {
-      return this.$store.getters.isLogin;
-    },
   },
   methods: {
     forgotPassword() {
@@ -109,20 +93,18 @@ export default {
       vm.process = true;
       if (vm.interval) {
         vm.process = false;
-        // this.errorMsg = 'Please try again after 30 second.'
         return;
       }
 
       vm.errorMsg = "";
 
-      
-      fetch(`${vm.ServiceUrl}controllers/forgot-password`, {
+      fetch(`${vm.ServiceUrl}api/controllers/forgot-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email:this.temp.email
+          email: this.temp.email,
         }),
       })
         .then((response) => response.json())
@@ -138,23 +120,12 @@ export default {
               vm.errorMsg = "";
             }
           }, 1000);
-          console.log(res);
-          if (res.success) {
+          // console.log(res);
+                   if (!res.success) {
+            // localStorage.removeItem("user_token");
+            // this.$router.push({ name: `Login` });
+          } else {
             vm.success = "Successfully send email reset password.";
-            //   vm.$store.commit("isLogin", true);
-            //   vm.$store.commit("user", res.user);
-            //   vm.$store.commit("jwt", vm.jwt);
-            //   console.log(vm.$route.query);
-            //   if (vm.$route.query.gp_code) {
-            //     // console.log("vm.$route.query.gp_codevm.$route.query.gp_codevm.$route.query.gp_codevm.$route.query.gp_codevm.$route.query.gp_codevm.$route.query.gp_code")
-            //     vm.$emit("setgame");
-            //   } else {
-            //     vm.$emit("getgame");
-            //   }
-            // } else {
-            //   vm.$store.commit("isLogin", false);
-            //   vm.$store.commit("jwt", false);
-            //   localStorage.removeItem("jwt");
             return;
           }
           this.errorMsg = res.errorMsg;
@@ -162,9 +133,6 @@ export default {
         .catch((error) => {
           vm.process = false;
           vm.errorMsg = res.errorMsg;
-          // vm.$store.commit("isLogin", false);
-          // vm.$store.commit("jwt", false);
-          // localStorage.removeItem("jwt");
           console.error("Error:", error);
         });
     },
@@ -173,9 +141,8 @@ export default {
     tab: function (val) {
       if (val == "forgot-password") {
         this.temp = {
-          email:''
-        }
-        // this.temp = { ...this.user };
+          email: "",
+        };
       }
     },
   },

@@ -6,9 +6,6 @@
     "
   >
     <div class="hero-content flex-col lg:flex-row w-full">
-      <!-- <div
-    class="navbar inset-x-0 top-0 z-50 w-full transition duration-200 ease-in-out border-b border-base-200 bg-base-100 text-base-content sticky"
-  > -->
       <div class="navbar lg:absolute top-0 left-0 bg-transparent z-10 hidden">
         <div class="flex-1">
           <a
@@ -17,62 +14,24 @@
             <div class="avatar h-full mr-2">
               <div class="rounded">
                 <img
+                alt="Image"
                   src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
                 />
               </div>
             </div>
             LOGO
           </a>
-          <!-- <a class="btn btn-ghost normal-case text-xl">daisyUI</a> -->
         </div>
         <div class="flex-none">
           <button
             class="btn btn-square btn-ghost"
             @click="$route.name != 'Home' ? $router.push({ name: `Home` }) : ''"
           >
-            <!-- <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          class="inline-block w-5 h-5 stroke-current"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          ></path>
-        </svg> -->
             back
           </button>
         </div>
-        <!-- <div class="flex-1">
-      <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
-    </div> -->
-        <!-- <div class="flex-none">
-      <button class="btn btn-square btn-ghost">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          class="inline-block w-5 h-5 stroke-current"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-          ></path>
-        </svg>
-      </button>
-    </div> -->
       </div>
-
       <div class="container w-full">
-        <!-- ... -->
-        <!-- <div class="hero min-h-screen bg-base-200"> -->
-        <!-- <div class="hero-content text-center"> -->
-        <!-- <div class="max-w-md"> -->
         <div class="flip-container lg:justify-self-end lg:place-self-end">
           <div
             class="flipper"
@@ -80,9 +39,6 @@
             :class="`${from == 'signin' ? '' : 'flip'}`"
           >
             <div class="front card bg-base-100">
-              <!-- <div
-                  class="card flex-shrink-0 w-full lg:w-screen max-w-sm bg-base-100"
-                > -->
               <div class="navbar absolute top-0 left-0 bg-transparent z-10">
                 <div class="flex-1"></div>
                 <div class="flex-none">
@@ -109,7 +65,7 @@
                   <input
                     type="text"
                     placeholder="email"
-                    class="input input-bordered"
+                    class="input input-bordered border-base-content"
                   />
                 </div>
                 <div class="form-control">
@@ -119,7 +75,7 @@
                   <input
                     type="text"
                     placeholder="password"
-                    class="input input-bordered"
+                    class="input input-bordered border-base-content"
                   />
                 </div>
                 <div class="form-control grid mt-4 mb-4">
@@ -161,7 +117,7 @@
                       <button
                         class="btn btn-square btn-outline border-slate-200"
                       >
-                        <img
+                        <img  alt="Image"
                           src="https://sm.ign.com/ign_es/tech/g/google/google_ucdj.png"
                           class="rounded-lg md:w-full lg:w-1/2"
                         />
@@ -171,7 +127,7 @@
                       <button
                         class="btn btn-square btn-outline border-slate-200"
                       >
-                        <img
+                        <img  alt="Image"
                           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREKes2ipksKNOKqd1Ts8KJxoz-4bu1nmfyx-fw4gopgyLO7Nk98PnN--Vf4oNPLT3IJmY&usqp=CAU"
                           class="rounded-lg md:w-full lg:w-1/2"
                         />
@@ -191,35 +147,11 @@
                   </p>
                 </div>
               </div>
-              <!-- </div> -->
-              <!-- <h1 class="title">Login</h1>
-                <form>
-                  <input type="text" placeholder="Username" />
-                  <input type="password" placeholder="Password" />
-                  <input type="button" value="Login" />
-                </form>
-                <a class="flipbutton" @click="from = 'signup'" href="#"
-                  >Create my account →</a
-                > -->
             </div>
 
-            <!-- <div class=""> -->
             <div class="back card bg-base-100">
               <div class="navbar absolute top-0 left-0 bg-transparent z-10">
                 <div class="flex-1">
-                  <!-- <a
-                    class="btn btn-ghost normal-case text-xl hover:bg-transparent px-0 lg:px-3"
-                  >
-                    <div class="avatar h-full mr-2">
-                      <div class="rounded">
-                        <img
-                          src="https://daisyui.com/images/stock/photo-1559703248-dcaaec9fab78.jpg"
-                        />
-                      </div>
-                    </div>
-                    LOGO
-                  </a> -->
-                  <!-- <a class="btn btn-ghost normal-case text-xl">daisyUI</a> -->
                 </div>
                 <div class="flex-none">
                   <button
@@ -245,7 +177,7 @@
                   <input
                     type="text"
                     placeholder="email"
-                    class="input input-bordered"
+                    class="input input-bordered border-base-content"
                   />
                 </div>
                 <div class="form-control">
@@ -255,7 +187,7 @@
                   <input
                     type="text"
                     placeholder="password"
-                    class="input input-bordered"
+                    class="input input-bordered border-base-content"
                   />
                 </div>
                 <div class="form-control">
@@ -265,7 +197,7 @@
                   <input
                     type="text"
                     placeholder="password"
-                    class="input input-bordered"
+                    class="input input-bordered border-base-content"
                   />
                 </div>
                 <div class="form-control grid mt-4 mb-4">
@@ -315,62 +247,10 @@
                 </div>
               </div>
             </div>
-            <!-- </div> -->
           </div>
         </div>
-        <!-- </div> -->
-        <!-- </div>
-          </div> -->
-
-        <!-- <div class="outer">
-            <div
-              class="inner absolute"
-              style="transition: all 0.5s ease-out"
-              :style="{
-                zIndex: `${from == 'signin' ? '111' : '1'}`,
-              }"
-            >
-              <div
-                style="transition: all 0.5s ease-out"
-                class="lg:justify-self-end lg:place-self-end"
-                :style="{
-                  transition: 'all 1s ease-out',
-                  transform: `rotateY(${from == 'signin' ? '0' : '90'}deg)`,
-                }"
-              >
-              
-              </div>
-            </div>
-            <div
-              class="inner absolute"
-              style="transition: all 0.5s ease-out"
-              :style="{
-                zIndex: `${from == 'signup' ? '111' : '1'}`,
-              }"
-            >
-              <div
-                class="lg:justify-self-end lg:place-self-end"
-                style="transition: all 0.5s ease-out"
-                :style="{
-                  transition: 'all 1s ease-out',
-                  transform: `rotateY(${from == 'signup' ? '0' : '90'}deg)`,
-                }"
-              >
-            
-              </div>
-            </div>
-          </div> -->
-        <!-- <div class="lg:justify-self-end lg:place-self-end"></div> -->
       </div>
     </div>
-    <!-- <div class="text-center lg:text-left"> -->
-
-    <!-- <p class="py-6">
-          Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-          excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a
-          id nisi.
-        </p> -->
-    <!-- </div> -->
   </div>
 </template>
 
@@ -387,7 +267,7 @@ export default {
   computed: {},
   methods: {
     login() {
-      this.$store.commit("testLogin", true);
+      // this.$store.commit("testLogin", true);
       this.$router.push({ name: `Home` });
     },
   },

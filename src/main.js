@@ -1,30 +1,83 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
+// import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import './assets/index.css'
-import { library } from '@fortawesome/fontawesome-svg-core'
+
+
+// import { library } from '@fortawesome/fontawesome-svg-core'
 /* import font awesome icon component */
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import {  faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
-import { faUser,faMagnifyingGlass,faHouse,               faCircleExclamation, faEnvelopeCircleCheck,faPen,faArrowRightFromBracket,faEye, faEyeSlash,faLink, faPenToSquare, faTrashCan,faAngleLeft,faAngleRight } from '@fortawesome/free-solid-svg-icons'
-library.add(faUser,faMagnifyingGlass, faHouse,                                              faEnvelopeCircleCheck,faPen,faCircleExclamation,faArrowRightFromBracket,faEye,faEyeSlash,faLink,faPenToSquare,faTrashCan,faFacebookSquare,faAngleLeft,faAngleRight)
+// import {  faFacebookSquare } from '@fortawesome/free-brands-svg-icons'
+// import { faUser,faMagnifyingGlass,faHouse,faPlus, faMinus ,faPen,  faCheck, faXmark,faFileExcel,
+//     faCircleExclamation, faEnvelopeCircleCheck,faArrowRightFromBracket,faLink, faPenToSquare, faTrashCan,faAngleLeft,faAngleRight } from '@fortawesome/free-solid-svg-icons'
+// import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons'
+// library.add(faUser,faMagnifyingGlass, faHouse,faPlus, faMinus , faPen,     faCheck, faXmark,  faEyeSlash,faEye,faFileExcel,
+    
+//     faEnvelopeCircleCheck,faCircleExclamation,faArrowRightFromBracket,faLink,faPenToSquare,faTrashCan,faFacebookSquare,faAngleLeft,faAngleRight)
 
+    import VueApexCharts from "vue3-apexcharts";
+
+    // const app = createApp(App);
 
 // import vue3GoogleLogin from 'vue3-google-login'
 
 // import GAuth from 'vue3-google-oauth2'
 // import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 // const gAuthOptions = 
+// var moment = require('moment'); // require
+var moment = require('moment-timezone'); // require
+// moment().format(); 
+// app.config.globalProperties.$moment = 
+const momentPlugin = {
+  install(app) {
+      // Attach moment to Vue 3 global properties, to make it globally available.
+      // https://vuejs.org/guide/reusability/plugins.html#writing-a-plugin
+      app.config.globalProperties.$moment = moment
+  }
+}
+import { Icon } from '@iconify/vue';
+import { VueSignaturePad } from "vue-signature-pad";
 
-createApp(App).use(store).use(router)
+// const app = createApp(App);
+import { setupCalendar } from 'v-calendar';
+import VueHtmlToPaper from 'vue-html-to-paper';
 
-// .use(GAuth, { clientId: '594749811693-j8rrlliai8tkj81gh65vi5f3tgd02seq.apps.googleusercontent.com', scope: 'email',plugin_name:'Posting', prompt: 'consent', fetch_basic_profile: false })
+const options = {
+  name: '_blank',
+  specs: [
+    'fullscreen=yes',
+    'titlebar=yes',
+    'scrollbars=yes'
+  ],
+  styles: [
+    'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+    'https://unpkg.com/kidlat-css/css/kidlat.css'
+  ],
+  timeout: 1000, // default timeout before the print window appears
+  autoClose: true, // if false, the window will not close after printing
+  windowTitle: window.document.title, // override the window title
+}
 
-// .use(GAuth, { clientId: '579548266498-m63f6q3jph78nvvkh9r9eemcut3lbke9.apps.googleusercontent.com', plugin_name:'Posting', prompt: 'consent', fetch_basic_profile: false })
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
+const toastoptions = {
+  transition: "Vue-Toastification__bounce",
+  maxToasts: 20,
+  newestOnTop: true
+}
+
+// Use calendar defaults (optional)
+// app
+const app = createApp(App).use(store).use(router).use(momentPlugin).use(VueApexCharts).use(setupCalendar, {}).use(VueHtmlToPaper, options).use(Toast, toastoptions)
+
+// .use(GAuth, { clientId: '594749811693-j8rrlliai8tkj81gh65vi5f3tgd02seq.apps.googleusercontent.com', scope: 'email',plugin_name:'UBIS', prompt: 'consent', fetch_basic_profile: false })
+
+// .use(GAuth, { clientId: '579548266498-m63f6q3jph78nvvkh9r9eemcut3lbke9.apps.googleusercontent.com', plugin_name:'UBIS', prompt: 'consent', fetch_basic_profile: false })
 
 // .use(vue3GoogleLogin, 
 //     {
@@ -32,4 +85,9 @@ createApp(App).use(store).use(router)
 //     clientId: '594749811693-j8rrlliai8tkj81gh65vi5f3tgd02seq.apps.googleusercontent.com'
 //   }
 //   )
-.component('font-awesome-icon', FontAwesomeIcon).mount('#app')
+// .component('font-awesome-icon', FontAwesomeIcon)
+.component('Icon',Icon)
+// import moment from 'moment'
+// Vue.use(require('vue-moment'));
+.component("VueSignaturePad", VueSignaturePad);
+app.mount('#app')

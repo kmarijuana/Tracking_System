@@ -36,6 +36,7 @@
 <script>
 // @ is an alias to /src
 import AppLayout from "@/components/App/layout.vue";
+import Query from "@/assets/js/fetch.js";
 
 export default {
   name: "Survey",
@@ -94,8 +95,8 @@ export default {
         // lastname: this.profileUpdate.temp.lastname,
         // mobile: this.profileUpdate.temp.mobile,
         // roblox: this.profileUpdate.temp.roblox,
-        // rating: this.profileUpdate.temp.rating,
-        // coin: this.profileUpdate.temp.coin,
+  
+
         // type: this.profileUpdate.temp.type,
         // comment_feedback: this.profileUpdate.temp.comment_feedback,
 
@@ -104,32 +105,23 @@ export default {
       if (this.user.type == "email") {
         obj.image = [image];
       }
-      fetch(`${this.ServiceUrl}controllers/user`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.jwt}`,
-        },
 
-        body: JSON.stringify(obj),
-      })
-        .then((response) => response.json())
-        .then((res) => {
+      new Query('base', 'put').set(this, `${this.serviceUrl}api/controllers/user`, obj, (res) => {
+        if (!res.success) {
+        // localStorage.removeItem("user_token");
+        // this.$router.push({ name: `Login` });
+        } else {
           console.log(res.row);
-          if (res.success) {
-            // alert("SUCCESS");
-            if (localStorage.getItem("jwt")) {
-              localStorage.setItem("jwt", res.jwt);
-            }
-            this.$store.commit("user", res.row);
-            this.$store.commit("jwt", localStorage.getItem("jwt"));
-            this.modal_roblox = false;
-            this.getLink(`${this.link_roblox}`, "Roblox");
+          // alert("SUCCESS");
+          if (localStorage.getItem("jwt")) {
+            localStorage.setItem("jwt", res.jwt);
           }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+          this.$store.commit("user", res.row);
+          this.$store.commit("jwt", localStorage.getItem("jwt"));
+          this.modal_roblox = false;
+          this.getLink(`${this.link_roblox}`, "Roblox");
+        }
+      });
     },
     // openweb(url) {
     //   // let route = this.$router.resolve({ name: name });
@@ -143,14 +135,8 @@ export default {
     // },
     getgamelist() {
       let vm = this;
-      fetch(`${this.ServiceUrl}controllers/game`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((res) => {
+      new Query('explore','get').get(this, `${this.serviceUrl}api/controllers/game`, (res) => {
+        if (res.success) {
           res.rows.forEach((v, i) => {
             console.log(v.image ? true : false);
             res.rows[i].image = v.image ? JSON.parse(v.image) : [];
@@ -162,10 +148,8 @@ export default {
             res.rows[i].master = 0;
           });
           this.explore = res;
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+        }
+      });
     },
     getLink(web, type) {
       console.log(web, type);
@@ -205,9 +189,6 @@ export default {
       this.$refs.AppLayout.joinnows.checked = true;
       this.$refs.AppLayout.profile.checked = false;
     },
-    // removeStorage(){
-    //   localStorage.removeItem('game_type')
-    // }
     loadVideo(id) {
       let video = document.getElementsByClassName(`video-${id}`);
       // let video1 = document.getElementsByClassName("video-1");
@@ -287,31 +268,9 @@ export default {
         "showtokensshowtokensshowtokensshowtokensshowtokensshowtokensshowtokensshowtokens"
       );
       console.log(this.showtokens);
-      console.log(this.game_type);
-      if (this.showtokens && this.game_type) {
-        this.modal_tokens = val;
-        // this.$store.commit("game_type", null);
-      }
-    },
-    gamelist: function (val) {
-      this.image.forEach((v, i) => {
-        this.image[i].active = false;
-      });
 
-      if (val.total == 0) {
-        return;
-      }
-      // console.log(this.image)
-      // console.log(val)
-      val.rows.forEach((v, i) => {
-        let index = this.image.findIndex((va) => va.title == v.game_type);
-
-        if (index >= 0) {
-          // console.log(v,index);
-          this.image[index].active = true;
-        }
-      });
     },
+
   },
 };
 </script>
